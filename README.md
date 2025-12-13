@@ -18,3 +18,7 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 # Miscellaneous
 - https://www.thetokendispatch.com/p/abstracting-on-chain-headaches?inbox=true&triedRedirect=true
 - https://web.math.princeton.edu/math_alive/1/Notes2.pdf (Usage of Fermat's little theorem in Cryptography)
+
+# Lending Protocols
+- https://berkeley-defi.github.io/assets/material/DeFi%20Protocols%20for%20Loanable%20Funds.pdf
+- https://mixbytes.io/blog/dealing-with-utilization-in-lending-protocols
