@@ -10,8 +10,14 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 - https://hackmd.io/@HaydenAdams/HJ9jLsfTz?type=view
 - https://github.com/runtimeverification/verified-smart-contracts/blob/uniswap/uniswap/x-y-k.pdf
 - https://arxiv.org/abs/1911.03380
-## V2
+  
+### V2
 - https://docs.uniswap.org/whitepaper.pdf
+
+# Solidity
+- https://eips.ethereum.org/EIPS/eip-4626
+- https://eips.ethereum.org/EIPS/eip-20
+
 # Unichain
 - https://docs.unichain.org/whitepaper.pdf
 
