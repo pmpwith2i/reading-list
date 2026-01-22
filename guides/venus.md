@@ -24,7 +24,7 @@
 11. [Key Formulas Cheat Sheet](#11-key-formulas-cheat-sheet)
 12. [Important State Variables](#12-important-state-variables)
 13. [Flow Diagrams](#13-flow-diagrams)
-14. [Academic Papers & Resources](#14-academic-papers--resources)
+14. [Academic Papers & Resources](#14-academic-papers--resources)2
 
 ---
 
@@ -118,12 +118,12 @@ contract ExponentialNoError {
 
 ### 2.4 Fixed-Point Operations
 
-**Multiplication** (two mantissa values):
+**Multiplication of two Exp values** (`mul_(Exp, Exp)`):
 ```
-result = (a × b) / 1e18
+result.mantissa = (a.mantissa × b.mantissa) / 1e18
 
 Example: 0.5 × 0.8 = 0.4
-Code:    (5e17 × 8e17) / 1e18 = 4e17 ✓
+         (5e17 × 8e17) / 1e18 = 4e35 / 1e18 = 4e17 ✓
 ```
 
 ```solidity
@@ -132,12 +132,12 @@ function mul_(Exp memory a, Exp memory b) internal pure returns (Exp memory) {
 }
 ```
 
-**Division** (two mantissa values):
+**Division of two Exp values** (`div_(Exp, Exp)`):
 ```
-result = (a × 1e18) / b
+result.mantissa = (a.mantissa × 1e18) / b.mantissa
 
 Example: 0.6 / 0.8 = 0.75
-Code:    (6e17 × 1e18) / 8e17 = 7.5e17 ✓
+         (6e17 × 1e18) / 8e17 = 6e35 / 8e17 = 7.5e17 ✓
 ```
 
 ```solidity
@@ -146,12 +146,87 @@ function div_(Exp memory a, Exp memory b) internal pure returns (Exp memory) {
 }
 ```
 
-**Scalar Multiplication** (mantissa × integer):
-```
-result = (mantissa × scalar) / 1e18
+**Scalar Operations** (IMPORTANT - different behaviors!):
 
-Example: 0.02 (exchange rate) × 1000 (vTokens) = 20 underlying
-Code:    (2e16 × 1000) / 1e18 = 20 ✓
+There are THREE different scalar multiplication functions:
+
+| Function | Returns | Formula | Use Case |
+|----------|---------|---------|----------|
+| `mul_(Exp, uint)` | Exp | `Exp{a.mantissa × b}` | Scale up an Exp (no division) |
+| `mul_(uint, Exp)` | uint | `(a × b.mantissa) / 1e18` | Get integer result |
+| `mul_ScalarTruncate(Exp, uint)` | uint | `(a.mantissa × b) / 1e18` | Multiply then truncate |
+
+```solidity
+// Returns Exp - just scales the mantissa (NO division!)
+function mul_(Exp memory a, uint b) internal pure returns (Exp memory) {
+    return Exp({ mantissa: mul_(a.mantissa, b) });
+}
+
+// Returns uint - divides by scale
+function mul_(uint a, Exp memory b) internal pure returns (uint) {
+    return mul_(a, b.mantissa) / expScale;
+}
+
+// Most commonly used: multiply then truncate to integer
+function mul_ScalarTruncate(Exp memory a, uint scalar) internal pure returns (uint) {
+    Exp memory product = mul_(a, scalar);  // Exp{a.mantissa * scalar}
+    return truncate(product);               // product.mantissa / 1e18
+}
+```
+
+**Example: Converting vTokens to underlying**
+```
+exchangeRate = 0.02  →  Exp{mantissa: 2e16}
+vTokens = 1000
+
+Using mul_ScalarTruncate(exchangeRate, vTokens):
+  Step 1: mul_(Exp{2e16}, 1000) = Exp{2e19}
+  Step 2: truncate(Exp{2e19}) = 2e19 / 1e18 = 20
+
+Result: 1000 vTokens = 20 underlying ✓
+```
+
+**Scalar Division** (similar pattern):
+
+| Function | Returns | Formula |
+|----------|---------|---------|
+| `div_(Exp, uint)` | Exp | `Exp{a.mantissa / b}` |
+| `div_(uint, Exp)` | uint | `(a × 1e18) / b.mantissa` |
+
+```solidity
+// Divide Exp by scalar - returns Exp
+function div_(Exp memory a, uint b) internal pure returns (Exp memory) {
+    return Exp({ mantissa: div_(a.mantissa, b) });
+}
+
+// Divide scalar by Exp - returns uint
+function div_(uint a, Exp memory b) internal pure returns (uint) {
+    return div_(mul_(a, expScale), b.mantissa);
+}
+```
+
+### 2.4.1 The Double Type (1e36 precision)
+
+`Double` provides **higher precision** for intermediate calculations:
+
+```solidity
+struct Double {
+    uint mantissa;  // Value × 1e36
+}
+```
+
+**When to use Double vs Exp:**
+- `Exp` (1e18): Standard precision, used for exchange rates, interest rates
+- `Double` (1e36): Used when multiplying two Exp values to avoid precision loss
+
+```solidity
+// Creates a Double from a fraction (used in liquidity calculations)
+function fraction(uint a, uint b) internal pure returns (Double memory) {
+    return Double({ mantissa: div_(mul_(a, doubleScale), b) });
+}
+
+// Example: fraction(3, 4) = Double{mantissa: 7.5e35} representing 0.75
+// (3 × 1e36) / 4 = 7.5e35 ✓
 ```
 
 ### 2.5 Precision Loss and Rounding
