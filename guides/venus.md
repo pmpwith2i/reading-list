@@ -3877,5 +3877,3 @@ Liquidator             vToken(Borrow)          vToken(Collateral)     Comptrolle
 6. Derive supply rate from borrow rate and explain the reserve factor
 
 ---
-
-*Good luck on your master's exam!*
