@@ -30,6 +30,7 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 # Miscellaneous
 - https://www.thetokendispatch.com/p/abstracting-on-chain-headaches?inbox=true&triedRedirect=true
 - https://web.math.princeton.edu/math_alive/1/Notes2.pdf (Usage of Fermat's little theorem in Cryptography)
+- https://medium.com/creditcoin-foundation/defi-lending-explained-overcollateralization-bf93f7bc159d
 
 # Books
 - https://linear.axler.net/LADR4e.pdf
