@@ -1,5 +1,8 @@
 A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 
+# Morpho
+- https://github.com/morpho-org/morpho-blue/blob/main/morpho-blue-whitepaper.pdf
+
 # Venus
 - https://github.com/VenusProtocol/venus-protocol-documentation/blob/main/whitepapers/Venus-whitepaper-v4.pdf
 
@@ -36,6 +39,6 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 - https://linear.axler.net/LADR4e.pdf
 - https://www.wiley.com/en-us/Quantitative+Trading%3A+How+to+Build+Your+Own+Algorithmic+Trading+Business%2C+2nd+Edition-p-9781119800064
 
-# Lending Protocols
+# Lending Protocols
 - https://berkeley-defi.github.io/assets/material/DeFi%20Protocols%20for%20Loanable%20Funds.pdf
 - https://mixbytes.io/blog/dealing-with-utilization-in-lending-protocols
