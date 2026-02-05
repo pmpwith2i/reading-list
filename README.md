@@ -16,6 +16,7 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 - https://hackmd.io/@HaydenAdams/HJ9jLsfTz?type=view
 - https://github.com/runtimeverification/verified-smart-contracts/blob/uniswap/uniswap/x-y-k.pdf
 - https://arxiv.org/abs/1911.03380
+- https://rareskills.io/post/uniswap-v2-tutorial
 
 ### V2
 - https://docs.uniswap.org/whitepaper.pdf
