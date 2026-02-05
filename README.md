@@ -18,6 +18,7 @@ A brutal list of all the stuff I'm reading (maybe writing) about deFi and web3
 - https://arxiv.org/abs/1911.03380
 - https://rareskills.io/post/uniswap-v2-tutorial
 - https://coinmetrics.io/wp-content/uploads/2023/03/uniswapv2_howSwapsWork-1.pdf
+- https://rareskills.io/post/uniswap-v2-mint-and-burn#minting-liquidity-when-the-pool-is-not-empty
 
 ### V2
 - https://docs.uniswap.org/whitepaper.pdf
